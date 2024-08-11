@@ -123,5 +123,26 @@ module.exports = {
         } catch (err) {
                 next(err);
         }
+    },
+    addAddress: async (req,res,next) => {
+        try {
+            const body = await jv.addAddressSchema.validateAsync(req.body);
+
+            const user = req.user;
+            const {house,area,state,pincode} = body;
+
+            user.addresses.push({
+                house,
+                area,
+                state,
+                pincode
+            });
+
+            await user.save();
+
+            return res.status(200).json({success:true,message:"Address Added Successfully"});
+        } catch (err) {
+            next(err);
+        }
     }
 }

@@ -13,5 +13,11 @@ module.exports = {
         email: Joi.string().required().trim().email(),
         password: Joi.string().required().min(6),
         otp: Joi.string().required().length(6)
-    })
+    }),
+    addAddressSchema: Joi.object({
+        house: Joi.string().required().trim(),
+        area: Joi.string().required().trim(),
+        state: Joi.string().required().trim(),
+        pincode: Joi.number().required().min(100000).max(999999)
+    }),
 }
